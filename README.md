@@ -101,6 +101,13 @@ GROQ_MODEL=qwen/qwen3.6-27b
 
 Never commit `.env` or your API key.
 
+
+### AI response sanitization
+
+Some reasoning-capable models can return internal `<think>...</think>` content.
+SanjeevBot removes these reasoning blocks before sending the answer to Telegram,
+so users only see the final user-facing response.
+
 ## Structure
 
 ```text

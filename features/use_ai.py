@@ -124,7 +124,47 @@ def ask_groq(prompt: str, image_path: str | None, image_mime: str | None) -> str
     if not content:
         return "I received an empty response from the AI model."
 
-    return content.strip()
+    cleaned = sanitize_model_output(content)
+
+    if not cleaned:
+        return "I received a response from the AI model, but it contained no user-facing answer."
+
+    return cleaned
+
+
+
+def sanitize_model_output(text: str) -> str:
+    # Remove model reasoning blocks before exposing output to Telegram users.
+    if not text:
+        return ""
+
+    import re
+
+    cleaned = text
+
+    cleaned = re.sub(
+        r"<think\b[^>]*>.*?</think\s*>",
+        "",
+        cleaned,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+
+    cleaned = re.sub(
+        r"<think\b[^>]*>.*$",
+        "",
+        cleaned,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+
+    cleaned = re.sub(
+        r"</?think\b[^>]*>",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def split_message(text: str, limit: int = TELEGRAM_TEXT_CHUNK) -> list[str]:
