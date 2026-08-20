@@ -7,6 +7,7 @@ def main_menu_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [
             [InlineKeyboardButton("📸 Photo to PDF", callback_data="photo_to_pdf")],
+            [InlineKeyboardButton("🗜️ Compress Photo", callback_data="compress_photo")],
         ]
     )
 

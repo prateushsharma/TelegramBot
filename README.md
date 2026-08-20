@@ -18,6 +18,23 @@ Current user flow:
 
 Temporary images and generated PDFs are removed from the computer after the operation finishes.
 
+
+## Feature #2 — Compress Photo
+
+Current user flow:
+
+1. Send `/start`
+2. Press **🗜️ Compress Photo**
+3. Send one image
+4. SanjeevBot shows the original file size
+5. Enter a target such as `500 KB`, `1 MB`, or `1.5 MB`
+6. SanjeevBot compresses the image to at most that target when possible
+7. The compressed JPEG is sent back with before/after size and resolution
+
+The compressor first searches for the highest JPEG quality that fits the requested
+size. If quality reduction alone is not enough, it progressively reduces image
+dimensions until it can meet the target.
+
 ## Structure
 
 ```text
