@@ -35,6 +35,35 @@ The compressor first searches for the highest JPEG quality that fits the request
 size. If quality reduction alone is not enough, it progressively reduces image
 dimensions until it can meet the target.
 
+
+## Feature #3 — Compress PDF
+
+Current user flow:
+
+1. Send `/start`
+2. Press **📦 Compress PDF**
+3. Send one PDF
+4. SanjeevBot shows the original file size
+5. Enter a target such as `500 KB`, `1 MB`, or `2.5 MB`
+6. SanjeevBot compresses the PDF using Ghostscript
+7. The compressed PDF is returned with before/after size details
+
+SanjeevBot tries progressively stronger image downsampling and JPEG compression
+profiles. Some PDFs—especially text/vector-heavy PDFs that are already optimized—
+may not be compressible to an arbitrary requested size. In that case, the bot sends
+the smallest result it was able to produce and clearly reports that the requested
+target was not reached.
+
+### System dependency
+
+PDF compression requires Ghostscript:
+
+```bash
+sudo apt install ghostscript
+```
+
+Patch #003 installs it automatically on Ubuntu when needed.
+
 ## Structure
 
 ```text
