@@ -64,6 +64,43 @@ sudo apt install ghostscript
 
 Patch #003 installs it automatically on Ubuntu when needed.
 
+
+## Feature #4 — Use AI
+
+SanjeevBot can call a Groq multimodal model for both text and image understanding.
+
+### Text-only flow
+
+1. Send `/start`
+2. Press **🤖 Use AI**
+3. Send a prompt
+4. SanjeevBot sends the prompt to Groq and returns the response
+
+### Image + prompt flow
+
+1. Press **🤖 Use AI**
+2. Send one photo/image
+3. SanjeevBot waits for a text prompt
+4. Send a prompt such as `Analyse this stock-market graph`
+5. The image and prompt are sent together to Groq
+6. SanjeevBot returns the vision-model response
+
+You can also send an image with a Telegram caption. The caption is treated as
+the prompt and the request runs immediately.
+
+### Groq configuration
+
+Add these values to `.env`:
+
+```env
+GROQ_API_KEY=YOUR_GROQ_API_KEY
+GROQ_MODEL=qwen/qwen3.6-27b
+```
+
+`qwen/qwen3.6-27b` is the default because it supports both text and image input.
+
+Never commit `.env` or your API key.
+
 ## Structure
 
 ```text

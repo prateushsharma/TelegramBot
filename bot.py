@@ -6,6 +6,7 @@ from config import BOT_TOKEN
 from features.compress_pdf import build_compress_pdf_handler
 from features.compress_photo import build_compress_photo_handler
 from features.photo_to_pdf import build_photo_to_pdf_handler
+from features.use_ai import build_use_ai_handler
 from keyboards.main_menu import send_main_menu
 
 logging.basicConfig(
@@ -31,6 +32,7 @@ def build_application() -> Application:
     application.add_handler(build_photo_to_pdf_handler())
     application.add_handler(build_compress_photo_handler())
     application.add_handler(build_compress_pdf_handler())
+    application.add_handler(build_use_ai_handler())
     application.add_handler(CommandHandler("start", start))
 
     return application
